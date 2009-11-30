@@ -9,10 +9,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
-
     (r'^filmes$', filmes),
-
     (r'^admin/', include(admin.site.urls)),
-
     (r'^comments/', include('django.contrib.comments.urls')),
+    (r'^filme/(?P<id_filme>\d+)/comentario/add$', comentarios),
+
 )

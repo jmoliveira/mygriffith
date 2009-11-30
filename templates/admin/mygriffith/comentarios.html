@@ -1,0 +1,14 @@
+{% load comments %}
+
+x
+{% get_comment_list for filme as comment_list %}
+{% for comment in comment_list %}
+
+{{comment.user_name}}
+{{comment.comment}} {{comment.submit_date}}
+{% endfor %}    
+
+yyyyyyyyyyy
+
+{% render_comment_form for filme %}
+

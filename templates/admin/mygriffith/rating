@@ -1,0 +1,111 @@
+    if request.method == 'POST':
+        had_voted = bool(user_rating)
+
+        if False and not request.POST.get('rating'):
+            return {
+                'error_no_rating': "You must rate this company",
+                'can_edit_vendor': can_edit_vendor,
+                'rating_range': (1,2,3,4,5),
+                'item': item,
+                'ratings': item.rating.get_ratings(),
+                'user_rating': user_rating,
+                }
+
+
+        try:
+            item.rating.add(score=int(request.POST.get('rating', 0)),
+                             user=request.user,
+                             ip_address=request.META['REMOTE_ADDR'])
+        except exc.AuthRequired:
+            pass  # this should never happen for me b/c i lock the view to logged in users
+        except exc.InvalidRating:
+            pass  # need to handle this exception
+        except exc.CannotChangeVote:
+            pass  # i let users change votes, so this won't happen
+        if had_voted:
+            pass  # etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+in the view:
+
+    try:
+        user_rating = item.rating.get_ratings().get(user=request.user)
+    except ObjectDoesNotExist:
+        user_rating = None
+
+<SNIP>
+
+    if request.method == 'GET':
+        return {
+            'user_rating': user_rating,
+<SNIP>
+            }
+<SNIP>
+
+
+
+**********
+ 
+in the template:
+
+{% if user_rating %}
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery("div.star-rating a[title={{user_rating.score}}]").click();
+});
+</script>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+in the view:
+
+    try:
+        user_rating = item.rating.get_ratings().get(user=request.user)
+    except ObjectDoesNotExist:
+        user_rating = None
+
+<SNIP>
+
+    if request.method == 'GET':
+        return {
+            'user_rating': user_rating,
+<SNIP>
+            }
+<SNIP>
+
+
+
+**********
+ 
+in the template:
+
+{% if user_rating %}
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery("div.star-rating a[title={{user_rating.score}}]").click();
+});
+</script>
+{% endif %}
+

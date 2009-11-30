@@ -1,3 +1,5 @@
+
+
 <html>
 <head>
 	<title>Jota Videoteca</title>
@@ -6,8 +8,15 @@
 </head>
 <body>
 
+<h1>Jota Videoteca</h1>
+
+
+<select>
+<option value="aaa">
+</select>
+
 <!-- ITEMS -->
-{% for filme in filmes %} 
+{% for filme in filmes.object_list %} 
 
 <table id="filme_{{ filme.id }}">
     {% if filme.image %}
@@ -39,11 +48,11 @@
 	</tr>
 	<tr class="runtime">
 		<th>Duração</th>
-		<td>{{ filme.runtime }}</td>
+		<td>{{ filme.runtime }}{% if filme.runtime %} min {% endif %}</td>
 	</tr>
 	<tr class="rating">
 		<th>Rating</th>
-		<td>{{ filme.rating }}{% if filme.rating %} min {% endif %}</td>
+		<td>{{ filme.rating }}</td>
 	</tr>
 	<tr class="links">
 		<th>o_site</th>
@@ -61,9 +70,29 @@
 		<th>Sinopse</th>
 		<td>{{ filme.plot }}</td>
 	</tr>
+	<tr class="comments">
+		<th>Comentarios</th>
+		<td><a href="filme/{{ filme.id }}/comentario/add">Visualizar Comentarios</a></td>
+	</tr>
+
 </table>
 {% endfor %} 
 
+<div class="pagination">
+    <span class="step-links">
+        {% if filmes.has_previous %}
+            <a href="?page={{ filmes.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ filmes.number }} of {{ filmes.paginator.num_pages }}.
+        </span>
+
+        {% if filmes.has_next %}
+            <a href="?page={{ filmes.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 <!-- /ITEMS -->
 
 
