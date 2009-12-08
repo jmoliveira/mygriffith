@@ -1,6 +1,7 @@
 # Create your views here.
 from util import render_to_response, write_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.db.models import Q
 from models import Movie
 
 
@@ -8,6 +9,24 @@ from models import Movie
 #    filmes = Movie.objects.all()
 #   return render_to_response("admin/mygriffith/filmes.html", {'filmes': filmes}, request)
 
+
+def buscar_filmes(request):
+    generos = [('todos','Todos'), ('acao','acao'), ('comedia','comRRdia'), ('drama', 'drama')]
+    filmes = []        
+    
+    if request.method == "POST":    
+        genero = request.POST.get('genero')
+        filme = request.POST.get('filme')
+        if filme and genero:
+            filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme) & Q(genre=genero))
+        elif genero:
+            filmes = Movie.objects.filter(Q(genre=genero))
+        else:
+            filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme)) 
+    else:
+        pass                    
+
+    return render_to_response("admin/mygriffith/buscar_filmes.html", {'filmes': filmes, 'generos':generos}, request)
 
 def filmes(request):
     filme_list = Movie.objects.all()
@@ -25,7 +44,7 @@ def filmes(request):
     except (EmptyPage, InvalidPage):
         filmes = paginator.page(paginator.num_pages)
 
-    return render_to_response("admin/mygriffith/filmes.html", {'filmes': filmes}, request)
+    return render_to_response("admin/mygriffith/buscar_filmes.html", {'filmes': filmes}, request)
 
 
 def comentarios(request, id_filme):

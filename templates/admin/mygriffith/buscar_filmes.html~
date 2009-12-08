@@ -1,0 +1,36 @@
+
+
+<html>
+<head>
+	<title>Jota Videoteca</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/admin_media/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/admin_media/css/changelists.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}mygriffith/css/gray.css" />
+</head>
+<body>
+
+<h1>Jota Videoteca</h1>
+
+BUSCA
+<div id="toolbar">
+    <form id="changelist-search" action="" method="POST">
+    <div>
+        <label for="searchbar"><img src="/admin_media/img/admin/icon_searchbox.png" alt="Search" /></label>
+        <input type="text" size="40" name="filme" value="" id="filme" />
+        <select>
+        {% for k, v in generos %} 
+        <option value="{{ k }}">{{ v }}</option>
+        {% endfor %}
+        </select>
+        <input type="submit" value="Buscar" />
+    </div>
+    </form>
+</div>
+<script type="text/javascript">document.getElementById("searchbar").focus();</script>
+
+{% include "/admin/mygriffith/filmes.html" %}
+
+
+</body>
+</html>

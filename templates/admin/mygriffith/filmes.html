@@ -1,20 +1,3 @@
-
-
-<html>
-<head>
-	<title>Jota Videoteca</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}mygriffith/css/gray.css" />
-</head>
-<body>
-
-<h1>Jota Videoteca</h1>
-
-
-<select>
-<option value="aaa">
-</select>
-
 <!-- ITEMS -->
 {% for filme in filmes.object_list %} 
 
@@ -78,6 +61,7 @@
 </table>
 {% endfor %} 
 
+{% if filmes %}
 <div class="pagination">
     <span class="step-links">
         {% if filmes.has_previous %}
@@ -93,8 +77,5 @@
         {% endif %}
     </span>
 </div>
+{% endif %}
 <!-- /ITEMS -->
-
-
-</body>
-</html>
