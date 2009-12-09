@@ -1,6 +1,8 @@
 from django.db import models
 
 class Movie(models.Model):
+    GENEROS_CHOICES = (('todos', 'Todos'), ('acao', 'acao'), ('comedia', 'comedia'), ('drama', 'drama'))
+
     id = models.AutoField(primary_key=True, db_column='movie_id') 
     number = models.PositiveIntegerField(verbose_name=u'Num', max_length=11, null=True, blank=False)
     o_title = models.CharField(verbose_name=u'Titulo Original', max_length=256, null=True, blank=True)

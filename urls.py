@@ -11,8 +11,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
 
-    (r'^filmes$', filmes),
-    (r'^filmes/buscar$', buscar_filmes),
+    (r'^filmes$', buscar_filmes),
 
     (r'^filme/(?P<id_filme>\d+)/comentario/add$', comentarios),
 

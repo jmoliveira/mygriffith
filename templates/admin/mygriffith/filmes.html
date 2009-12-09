@@ -1,71 +1,30 @@
 <!-- ITEMS -->
+<table border=0 cellpadding=2 cellspacing=1 width="100%">
+<tr>
+	<td colspan=2 bgcolor="#B40000" class="bg0031"><font color="#ffffff"><b>Filmes</b></font></td>
+	<td width="75" align="center" bgcolor="#B40000" class="bg0031"><font color="#ffffff"><b>Cotação</b></font></td>
+</tr>
+
 {% for filme in filmes.object_list %} 
-
-<table id="filme_{{ filme.id }}">
-    {% if filme.image %}
-	<tr class="image">
-		<td rowspan="11">
-			<img src="./posters/" alt="XIIIII" />
-		</td>
-	</tr>
-    {% endif %}
-	<tr class="title"> 
-		<th>Título Brasil</th>
-		<td>{{ filme.title }}</td>
-	</tr>
-	<tr class="otitle">
-		<th>Título Original</th>
-		<td>{{ filme.o_title }}</td>
-	</tr>
-	<tr class="director">
-		<th>Diretor</th>
-		<td>{{ filme.director }}</td>
-	</tr>
-	<tr class="genre">
-		<th>Genero</th>
-		<td>{{ filme.genre }}</td>
-	</tr>
-	<tr class="year">
-		<th>Ano</th>
-		<td>{{ filme.year }}</td>
-	</tr>
-	<tr class="runtime">
-		<th>Duração</th>
-		<td>{{ filme.runtime }}{% if filme.runtime %} min {% endif %}</td>
-	</tr>
-	<tr class="rating">
-		<th>Rating</th>
-		<td>{{ filme.rating }}</td>
-	</tr>
-	<tr class="links">
-		<th>o_site</th>
-		<td>{% if filme.o_site %}<a href="{{ filme.o_site }}">{{ filme.o_site }}</a>{% endif %}</td>
-	</tr>
-	<tr class="links">
-		<th>site</th>
-		<td>{% if filme.site %}<a href="{{ filme.site }}">{{ filme.site }}</a>{% endif %}</td>
-	</tr>
-	<tr class="links">
-		<th>Trailer</th>
-		<td>{% if filme.trailer %}<a href="{{ filme.trailer }}">{{ filme.trailer }}</a>{% endif %}</td>
-	</tr>
-	<tr class="plot">
-		<th>Sinopse</th>
-		<td>{{ filme.plot }}</td>
-	</tr>
-	<tr class="comments">
-		<th>Comentarios</th>
-		<td><a href="filme/{{ filme.id }}/comentario/add">Visualizar Comentarios</a></td>
-	</tr>
-
-</table>
+<tr>
+	<td width="55px" align="center">
+<a href="{{ filme.o_site }}"><img src="images/filmes/poster/thumbs/peq_poster_12573.jpg" class="image"></a>
+    </td>
+	<td>
+        <div align=right>{% if filme.trailer %}<a href="{{ filme.trailer }}"><font color="#B40000"><b>Veja o Trailer</b></font><img src="{{ MEDIA_URL }}mygriffith/img/ico_trailer.gif" border=0></a>{% endif %}</div><font class="titulo"><a href="filmes_detalhes.php?idf=12573">{{ filme.title }}</a></font><br>(<i>{{ filme.o_title }}</i>, <a href="busca_mais.php?opc=pais&busca=Inglaterra">{{ filme.country }}</a>, <a href="busca_mais.php?opc=ano&busca=2009">{{ filme.year }}</a>, <a href="busca_mais.php?opc=genero&busca=A%E7%E3o">{{ filme.genre }}</a>)<br>			
+    </td>
+    <td width="55px" align=center>
+        <font color="#B40000"><span style="font-size:14px"><b>{{ filme.rating }}</b></span><br>
+	</td>
+</tr>
 {% endfor %} 
+</table>
 
-{% if filmes %}
+{% if filmes.object_list %}
 <div class="pagination">
     <span class="step-links">
         {% if filmes.has_previous %}
-            <a href="?page={{ filmes.previous_page_number }}">previous</a>
+            <a href="javascript:buscar({{ filmes.previous_page_number }})">previous</a>
         {% endif %}
 
         <span class="current">
@@ -73,7 +32,7 @@
         </span>
 
         {% if filmes.has_next %}
-            <a href="?page={{ filmes.next_page_number }}">next</a>
+            <a href="javascript:buscar({{ filmes.next_page_number }})">next</a>
         {% endif %}
     </span>
 </div>
