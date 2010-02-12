@@ -5,6 +5,7 @@
 	<title>Jota Videoteca</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}mygriffith/css/gray.css" />
+
 </head>
 <body>
 
@@ -21,7 +22,8 @@ BUSCA
 <script type="text/javascript">
     document.getElementById("id_filme").focus();
     function buscar(page) {
-        document.search.submit()    
+        document.search.page.value = page        
+        document.search.submit()
     }
 </script>
 

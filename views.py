@@ -6,15 +6,16 @@ from models import Movie
 from forms import SearchMovieForm
 
 def paginacao_filmes(filmes, request, qtd=10):
+    
     paginator = Paginator(filmes, qtd)
     
     try:
         page = int(request.POST.get('page', '1'))
     except ValueError:
         page = 1
-
-    print "PAGE:", request.POST.get('page', '1')
-    print "filmes:", filmes
+    #import pdb; pdb.set_trace()
+    print "PAGE:", page
+    #print "filmes:", filmes
 
     try:
         filmes = paginator.page(page)
@@ -26,21 +27,31 @@ def paginacao_filmes(filmes, request, qtd=10):
 def buscar_filmes(request):
     if request.method == 'POST':
         form = SearchMovieForm(request.POST)
-        filmes = None
+        qs_filmes = None
         #import pdb; pdb.set_trace()
         if form.is_valid():
             genero = form.cleaned_data['genero']
             filme = form.cleaned_data['filme']
             if filme and genero:
-                filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme) & Q(genre=genero))
+                if Movie.GENEROS_CHOICES.get_key_default() in genero:
+                    qs_filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme))
+                else:
+                    qs_filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme) & Q(genre__in=genero))    
             elif genero:
-                filmes = Movie.objects.filter(Q(genre=genero))
+                if Movie.GENEROS_CHOICES.get_key_default() in genero:
+                    qs_filmes = Movie.objects.all()
+                else:
+                    qs_filmes = Movie.objects.filter(Q(genre__in=genero))
+            elif filme:
+                qs_filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme)) 
+            
+            if qs_filmes:
+                filmes = paginacao_filmes(qs_filmes, request)
             else:
-                filmes = Movie.objects.filter(Q(o_title__contains=filme) | Q(title__contains=filme)) 
-
-            filmes = paginacao_filmes(filmes, request)
+                filmes = None
 
         return render_to_response("admin/mygriffith/buscar_filmes.html", {'form': form, 'filmes': filmes}, request)
+
     else:
         form = SearchMovieForm()
         return render_to_response("admin/mygriffith/buscar_filmes.html", {'form': form}, request)

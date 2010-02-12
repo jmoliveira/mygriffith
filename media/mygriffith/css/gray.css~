@@ -18,10 +18,16 @@ table {
 
 td {
 	padding-left: 10px;
-	text-align: left;
 }
 
 tr.title td {
+	color: #ffcc00;
+	font-style: oblique;
+	font-family: "palatino linotype", palatino, "book antiqua", georgia, times, "times new roman", serif;
+	font-size: 2em;
+}
+
+.title {
 	color: #ffcc00;
 	font-style: oblique;
 	font-family: "palatino linotype", palatino, "book antiqua", georgia, times, "times new roman", serif;
@@ -90,3 +96,4 @@ a:visited	{ color: #ecbe35; text-decoration: none; }
 	font-size: 0.7em;
 	margin-top: 5px;
 }
+

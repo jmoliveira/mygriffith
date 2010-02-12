@@ -1,7 +1,41 @@
 from django.db import models
 
+class ChoicesEnum():
+    
+    def __init__(self, tuple_or_dict, key_default=None):
+        self.dados = {}
+        self.key_default = key_default
+        if isinstance(tuple_or_dict, tuple):
+            for x, y in tuple_or_dict:
+                self.dados.update({x:y})
+        elif isinstance(tuple_or_dict, dict):
+            self.dados = tupla_or_dict.clone()
+
+    def get_value(self, key, default=None):
+        return self.dados.get(key, default)   
+    
+    def get_key(self, value):
+        for k, v in self.dados.items():
+            if v == value:
+                return k
+        return None
+    
+    def get_choices(self):
+        return self.dados.items()
+
+    def get_key_default(self):
+        """ retorna o key default (caso exista) """
+        return self.key_default
+
+    def get_value_default(self):
+        """ retorna o value do key default (caso exista) """
+        if self.key_default:
+            return self.get_value(self.key_default)
+        return None
+                    
+
 class Movie(models.Model):
-    GENEROS_CHOICES = (('todos', 'Todos'), ('acao', 'acao'), ('comedia', 'comedia'), ('drama', 'drama'))
+    GENEROS_CHOICES = ChoicesEnum((('todos', 'Todos'), ('acao', 'acao'), ('comedia', 'Comdia'), ('drama', 'drama')), key_default="todos")
 
     id = models.AutoField(primary_key=True, db_column='movie_id') 
     number = models.PositiveIntegerField(verbose_name=u'Num', max_length=11, null=True, blank=False)
