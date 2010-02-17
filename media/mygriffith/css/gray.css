@@ -1,6 +1,6 @@
 body {
 	font-family: verdana, geneva, arial, helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	background-color: #333333;
 	color: #ffffff;
 }
@@ -18,6 +18,8 @@ table {
 
 td {
 	padding-left: 10px;
+    padding-top:5px;
+    vertical-align:middle;
 }
 
 tr.title td {
@@ -95,5 +97,23 @@ a:visited	{ color: #ecbe35; text-decoration: none; }
 .copyright {
 	font-size: 0.7em;
 	margin-top: 5px;
+}
+
+.titulo {
+    font-size: 1.2em;
+    float: left;
+}
+
+.tbl-header {
+    background-color: #B40000;
+
+}
+
+.rating {
+ 
+}
+
+.trailer {
+ float: left;
 }
 

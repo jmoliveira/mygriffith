@@ -1,20 +1,28 @@
 <!-- ITEMS -->
-<table border=0 cellpadding=2 cellspacing=1 width="100%">
-<tr>
-	<td colspan=2 bgcolor="#B40000" class="bg0031"><font color="#ffffff"><b>Filmes</b></font></td>
-	<td width="75" align="center" bgcolor="#B40000" class="bg0031"><font color="#ffffff"><b>Cotação</b></font></td>
+<table border=0>
+<tr class="tbl-header">
+	<td colspan=2>Filmes</td>
+	<td width="75">Cotação</td>
 </tr>
 
 {% for filme in filmes.object_list %} 
 <tr>
-	<td width="55px" align="center" bgcolor="#f0f0f0">
-<a href="{{ filme.o_site }}"><img src="images/filmes/poster/thumbs/peq_poster_12573.jpg" class="image"></a>
+	<td width="55px" align="center">
+<a href="{{ filme.o_site }}"><img src="{{ MEDIA_URL }}mygriffith/img/thumbs/peq_poster_12573.jpg" class="image"></a>
     </td>
 	<td>
-        <div align=right>{% if filme.trailer %}<a href="{{ filme.trailer }}"><font color="#B40000"><b>Veja o Trailer</b></font><img src="{{ MEDIA_URL }}mygriffith/img/ico_trailer.gif" border=0></a>{% endif %}</div><font class="titulo"><a href="filmes_detalhes.php?idf=12573">{{ filme.title }}</a></font><br>(<i>{{ filme.o_title }}</i>, <a href="busca_mais.php?opc=pais&busca=Inglaterra">{{ filme.country }}</a>, <a href="busca_mais.php?opc=ano&busca=2009">{{ filme.year }}</a>, <a href="busca_mais.php?opc=genero&busca=A%E7%E3o">{{ filme.genre }}</a>)<br>			
+        <div align=right>
+           {% if filme.trailer %}
+                <a href="{{ filme.trailer }}" title="Veja o trailer"><img src="{{ MEDIA_URL }}mygriffith/img/ico_trailer.gif" border=0></a>
+            {% endif %}
+        <span class="titulo"><a href="filmes_detalhes.php?idf=12573">{{ filme.title }}</a></span>
+        </div>
+
+        <div align=left>(<span class="otitulo">{{ filme.o_title }}</span>, <a href="busca_mais.php?opc=pais&busca=Inglaterra">{{ filme.country }}</a>, <a href="busca_mais.php?opc=ano&busca=2009">{{ filme.year }}</a>, <a href="busca_mais.php?opc=genero&busca=A%E7%E3o">{{ filme.genre }}</a>)
+        </div> 			
     </td>
     <td width="55px" align=center>
-        <font color="#B40000"><span style="font-size:14px"><b>{{ filme.rating }}</b></span><br>
+        <span class="rating">{{ filme.rating }}</span>
 	</td>
 </tr>
 {% endfor %} 

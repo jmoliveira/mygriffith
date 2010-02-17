@@ -93,7 +93,7 @@ h1 { color: #48a013; }
 }
 
 .copyright {
-	font-size: 0.8em;
+	font-size: 0.7em;
 	margin-top: 5px;
 	color: #56bc24;
 }
@@ -101,4 +101,3 @@ h1 { color: #48a013; }
 .titulo {
     font-size: 1.2em;
 }
-
